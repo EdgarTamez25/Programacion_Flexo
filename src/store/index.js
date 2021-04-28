@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import router  from '@/router'
-
-
-import Login   from '@/modules/AppController/Login'
-import Maquinas   from '@/modules/Maquinas'
-import Programacion   from '@/modules/Programacion'
-
+import Login         from '@/modules/AppController/Login'
+import Maquinas      from '@/modules/Maquinas'
+import Programacion  from '@/modules/Programacion'
+import Tintas        from '@/modules/Tintas'
+import Monitor       from '@/modules/Monitor';
+import PrograDepto   from '@/modules/PrograDepto';
 
 
 Vue.use(Vuex)
@@ -28,6 +28,9 @@ export default new Vuex.Store({
   modules: {
     Login,
     Maquinas,
-    Programacion
+    Programacion,
+    Tintas,
+    Monitor,
+    PrograDepto
   }
 })

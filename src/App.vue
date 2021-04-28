@@ -45,7 +45,7 @@
       </v-list>
 
       <!-- ADMINISTRACION -->
-      <!-- <v-list dense shaped>
+      <v-list dense shaped>
         <template v-for="admin in AppControl">
 
           <v-list-group  v-if="admin.administracion" :key="admin.title" v-model="admin.model" :prepend-icon="admin.model ? admin.icon : admin['icon-alt']"
@@ -74,12 +74,13 @@
                 </v-list-item-title>
               </v-list-item-content>
                <v-list-item-action v-if="child.icon">
+                
                 <v-icon>{{ child.icon }}</v-icon>
               </v-list-item-action>
             </v-list-item>
           </v-list-group>
         </template>
-      </v-list> -->
+      </v-list>
 
       <!-- <v-divider></v-divider> -->
 
@@ -150,21 +151,27 @@ export default {
      AppControl: [
         {
           admin: [ 
-            { text: 'Orden de trabajo'      ,icon: 'home'                      ,path: '/programacion'},
-            { text: 'Maquina por Operador' ,icon: 'chrome_reader_mode'         ,path: '/maquinas-por-operador'},
+            { text: 'Monitor '              ,icon: 'mdi-monitor-eye'      ,path: '/monitor-master'},
+            { text: 'Flexografía'           ,icon: 'home'                 ,path: '/flexografia'},
+            { text: 'Maquina por Operador'  ,icon: 'chrome_reader_mode'   ,path: '/maquinas-por-operador'},
+            // { text: 'Registro de tintas'    ,icon: 'print'                ,path: '/registro-de-tintas'},
             // { text: 'Resultados' ,icon: 'ballot'                     ,path: '/solicitudes'},
             ],
         },
 
         {
           icon: 'menu_book',
-          title :' Reportes',
+          title :' Programaciones',
           model: true,
           administracion: [ 
-            { text: 'Ordenes de trabajo' ,icon: 'print'             ,path: '/productos'},
-            { text: 'Producción'         ,icon: 'mdi-printer-3d'    ,path: '/productos-por-cliente'},
-            { text: 'Maquinas'           ,icon: 'mdi-text-box-check',path: '/ordenes-de-trabajo'},
-
+            { text: 'Bordados'    , icon: 'mdi-monitor-star' , path: '/programacion-bordados'},
+            { text: 'Digital'     , icon: 'mdi-monitor-star' , path: '/programacion-digital'},
+            { text: 'Offset'      , icon: 'mdi-monitor-star' , path: '/programacion-offset'},
+            { text: 'Serigrafía'  , icon: 'mdi-monitor-star' , path: '/programacion-serigrafia'},
+            { text: 'Empaque'     , icon: 'mdi-monitor-star' , path: '/programacion-empaque'},
+            { text: 'Sublimación' , icon: 'mdi-monitor-star' , path: '/programacion-sublimación'},
+            { text: 'Tampografía' , icon: 'mdi-monitor-star' , path: '/programacion-tampografia'},
+            { text: 'UV'          , icon: 'mdi-monitor-star' , path: '/programacion-uv'},
           ],
         },
        
@@ -187,39 +194,43 @@ export default {
             this.ObtenerDatosUsuario(payload).then(response =>{
               this.alerta = { activo: true, texto: `HOLA DE NUEVO ${ response.nombre }`, color :'success' };
               
-              if(response.nivel === 1 || response.nivel === 2){
-                if(this.$router.currentRoute.name != 'programacion'){  // COMPARO LA RUTA EN LA QUE ME ENCUENTRO 
-                  this.$router.push({ name: 'programacion' });         // SI ES ADMINISTRADOR LO MANDO A PROGRAMACIONES
+              if(response.nivel === 1 || response.nivel === 5){
+                if(this.$router.currentRoute.name != 'monitor-master'){  // COMPARO LA RUTA EN LA QUE ME ENCUENTRO 
+                  this.$router.push({ name: 'monitor-master' });         // SI ES ADMINISTRADOR LO MANDO A PROGRAMACIONES
                 }
-              }else{
+              }else if(response.nivel === 2){
+                if(this.$router.currentRoute.name != 'flexografia'){  // COMPARO LA RUTA EN LA QUE ME ENCUENTRO 
+                  this.$router.push({ name: 'flexografia' });         // SI ES ADMINISTRADOR LO MANDO A PROGRAMACIONES
+                }
+              }else if(response.nivel === 9){
                 if(this.$router.currentRoute.name != 'operaciones'){  // COMPARO LA RUTA EN LA QUE ME ENCUENTRO 
                   this.$router.push({ name: 'operaciones' })        // SI ES DIFERENTE A 1 LO TOMO COMO OPERADOR
-                } 
+                }
               }
-              this.blocked = false;  // DESACTIVO BLOCKEO DE OVERLAY
 
+              this.blocked = false;  // DESACTIVO BLOCKEO DE OVERLAY
             }).catch( error=>{    
               this.alerta = { activo: true, texto: error.bodyText, color:'error'}
               window.location.href = this.urlSistemaPrincipal;
             });  
 
           }).catch( error =>{
-            console.log('Error validacion', error.bodyText)
+            // console.log('Error validacion', error.bodyText)
             window.location.href = this.urlSistemaPrincipal;
           })
 
-          if(this.$router.currentRoute.name != 'programacion'){  // COMPARO LA RUTA EN LA QUE ME ENCUENTRO 
+          if(this.$router.currentRoute.name != 'flexografia'){  // COMPARO LA RUTA EN LA QUE ME ENCUENTRO 
             // console.log('Si esta bien')
-            this.$router.push({ name: 'programacion' });         // SI ES DIFERENTE ENRUTO A PAGINA ARRANQUE
+            this.$router.push({ name: 'flexografia' });         // SI ES DIFERENTE ENRUTO A PAGINA ARRANQUE
           }
 
         }else{ 
-            console.log('NO HAY KEYLOG')
+            // console.log('NO HAY KEYLOG')
             window.location.href = this.urlSistemaPrincipal;
         }
     } else {
-      console.log('NO ES COMPATIBLE LOCAL')
-      // window.location.href = this.urlSistemaPrincipal;
+      // console.log('NO ES COMPATIBLE LOCAL')
+      window.location.href = this.urlSistemaPrincipal;
     }
   },
 

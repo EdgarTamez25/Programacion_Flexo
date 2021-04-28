@@ -154,7 +154,7 @@
     created(){
       this.fecha1      = this.traerFechaActual();
       this.fechaActual = this.traerFechaActual();
-      this.consultar_Maqinas();
+			this.consultar_Maqinas_Depto(1);
       this.consultar_Operadores();
 
       if(this.Parametros.fecha != undefined){

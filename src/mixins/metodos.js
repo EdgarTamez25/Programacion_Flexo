@@ -49,9 +49,9 @@ export default {
 			})	
 		},
 
-		consultar_Maqinas(){  // AUTOCOMPLETE -> CLIENTES
+		consultar_Maqinas_Depto(id_depto){  // AUTOCOMPLETE -> CLIENTES
 			return new Promise( resolve => {
-				this.$http.get('obtener.maquinas').then((response)=>{
+				this.$http.get('obtener.maquinas.depto/'+ id_depto).then((response)=>{
 					// console.log('Maquinas', response.body)
 					this.maquinas = response.body //LLENNO ARRAY
 					resolve(this.maquinas);
@@ -61,7 +61,7 @@ export default {
 			})	
 		},
 
-		consulta_Materiales(depto_id){
+		consulta_Materiales(depto_id = 1){
 			return new Promise( resolve => {
 				this.$http.get('materiales/'+ depto_id).then((response)=>{
 					for(let i=0; i< response.body.length; i++){
@@ -119,6 +119,63 @@ export default {
 				})
 			})
 		},
+
+
+		consulta_Unidades(){  // AUTOCOMPLETE -> CLIENTES
+			return new Promise( resolve => {
+				this.$http.get('unidades').then((response)=>{
+					this.unidades = response.body //LLENNO ARRAY
+					resolve(true);
+				}).catch(error =>{
+					console.log('errorUnidad', error)
+				})
+			})	
+		},
+
+		consulta_pantones_x_color(color=1){
+			return new Promise( resolve => {
+				this.$http.get('obten.pantones.x.color/' + color).then((response)=>{
+					this.pantones = response.body //LLENNO ARRAY
+					resolve(true);
+				}).catch(error =>{
+					console.log('errorPantonxColor', error)
+				})
+			})
+		},
+
+		consulta_pantones(){
+			return new Promise( resolve => {
+				this.$http.get('obten.pantones').then((response)=>{
+					this.pantones = response.body //LLENNO ARRAY
+					resolve(true);
+				}).catch(error =>{
+					console.log('errorPanton', error)
+				})
+			})
+		},
+
+		consultaDepartamentos(){
+			this.deptos = [	{ id:1, nombre:'FLEXOGRAFÍA'},
+											{ id:2, nombre:'BORDADOS'},
+											{ id:3, nombre:'DIGITAL'},
+											{ id:4, nombre:'OFFSET'},
+											{ id:5, nombre:'SERIGRAFÍA'},
+											{ id:6, nombre:'EMPAQUE'},
+											{ id:7, nombre:'SUBLIMACIÓN'},
+											{ id:8, nombre:'TAMPOGRAFÍA'},
+											{ id:9, nombre:'UV'}
+										]
+		},
+
+		consultarSucursales(){ //SUCURSALES
+			this.$http.get('sucursales').then((response)=>{
+				this.sucursales = response.body
+			}).catch(error =>{
+				console.log('error', error)
+			})
+		},
+
+
 		
   }
 }

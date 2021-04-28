@@ -60,6 +60,7 @@ export default{
 			// console.log(`id usuario ${id_usuario} sistema ${syster_number}`)
 			return new Promise((resolve, reject) => {
 				Vue.http.post('obtener.datos.usuario',payload ).then(response =>{
+					// console.log('datos users', response.body)
 					resolve(response.body.datosUsuario)
 					commit('DATOS_USUARIO', response.body.datosUsuario );
 					commit('SISTEMAS'     , response.body.sistemas);

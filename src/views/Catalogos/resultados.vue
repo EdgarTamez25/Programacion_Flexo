@@ -14,14 +14,13 @@
             <v-col cols="12" class="text-center headline font-weight-black">
               RESULTADOS DE LA ORDEN DE TRABAJO
             </v-col>  
-
             <v-col cols="12">
               <v-list two-line subheader outlined >
                 <v-list-item >
                   <v-list-item-content >
-                    <v-list-item-title class="overline"> <span class="font-weight-black"> PRODUCTO:</span> {{ parametros.producto}} </v-list-item-title>
+                    <v-list-item-title class="overline"> <span class="font-weight-black"> PRODUCTO:</span> {{ parametros.codigo}} </v-list-item-title>
                     <v-list-item-title class="overline"> <span class="font-weight-black"> CLIENTE: </span> {{ parametros.nomcli}}   </v-list-item-title>
-                    <v-list-item-title class="overline"> <span class="font-weight-black"> O.T:     </span> {{ parametros.ot}}       </v-list-item-title>
+                    <v-list-item-title class="overline"> <span class="font-weight-black"> O.T:     </span> {{ parametros.id_ot}}       </v-list-item-title>
                   </v-list-item-content>
                   <v-list-item-content >
                     <v-list-item-title class="overline"> 
@@ -31,7 +30,7 @@
                       <span> PLECA: </span> {{ parametros.id_pleca ===1? 'SI':'NO'}} 
                     </v-list-item-title>
                     <v-list-item-title class="overline">            
-                      <span class="font-weight-black"> PARTIDA:  </span> {{ parametros.num_partida}}              
+                      <span class="font-weight-black"> PARTIDA:  </span> {{ parametros.id_det_ot}}              
                     </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>

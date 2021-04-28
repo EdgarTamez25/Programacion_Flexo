@@ -51,18 +51,19 @@
               <v-list two-line subheader >
                 <v-list-item v-for="(item , i) in programaciones_Maquina" :key="i" link @click="ver_Detalle_Produccion(item)" >
                   <v-list-item-avatar size="40" >
-                    <v-btn icon v-if="item.urgencia === 1" class="red darken-4" dark>{{ item.id}} </v-btn>
-                    <v-btn icon v-else>{{ item.id}} </v-btn>
+                    <v-btn icon v-if="item.urgencia === 1" class="black darken-4" dark>{{ item.id}} </v-btn>
+                    <v-btn icon v-if="item.urgencia === 2" class="orange darken-4" dark>{{ item.id}} </v-btn>
+                    <v-btn icon v-if="item.urgencia === 3" class="error darken-4" dark>{{ item.id}} </v-btn>
                   </v-list-item-avatar >
                   
                   <v-list-item-content >
-                    <v-list-item-title    class="font-weight-black caption">PRODUCTO: {{ item.producto }}</v-list-item-title>
-                    <v-list-item-subtitle class="font-weight-black caption">CLIENTE: {{ item.nomcli }}</v-list-item-subtitle>
+                    <v-list-item-title    class="font-weight-black caption">PRODUCTO: {{ item.codigo }}</v-list-item-title>
+                    <v-list-item-subtitle class="font-weight-black caption"> {{ item.nomcli }}</v-list-item-subtitle>
                   </v-list-item-content>
 
                   <v-list-item-action>
                     <v-list-item-title    class="font-weight-black caption">CANT:{{ item.cantidad }}</v-list-item-title>
-                    <v-list-item-subtitle class="font-weight-black caption">O.T:{{ item.ot }}</v-list-item-subtitle>
+                    <v-list-item-subtitle class="font-weight-black caption">O.T:{{ item.id_ot }}</v-list-item-subtitle>
                   </v-list-item-action>
 
                   <v-list-item-action>
@@ -104,8 +105,8 @@
     }),
     
     created(){
-			this.consultar_Maqinas();
-
+			// this.consultar_Maqinas();
+			this.consultar_Maqinas_Depto(1);
       this.init()
       // this.init();
     },
@@ -122,7 +123,8 @@
 
         const payload  = new Object();
             payload.fecha       = this.traerFechaActual(),
-            payload.id_operador = this.getdatosUsuario.id
+            payload.id_operador = this.getdatosUsuario.id,
+            payload.id_sucursal = this.getdatosUsuario.id_sucursal
       
         this.obtener_maquina_asignada(payload).then(response => {
           this.maquina = { id: this.maquina_Asignada.id_maquina };

@@ -1,6 +1,6 @@
 <template>
-	<v-main class="pa-5">
-		<v-row justify="center">
+	<v-main class="pa-3">
+		<v-row justify="center" class="ma-1">
 			<v-col cols="12" >
         
         <!-- LOADING -->
@@ -15,27 +15,27 @@
 				</v-card-actions>
 
 				<v-row class="mt-5">
-          <v-col cols="12" sm="4" lg="6">
+          <v-col cols="12" sm="4" >
             <v-autocomplete
               :items="maquinas" v-model="maquina" item-text="nombre" item-value="id" label="Maquinas" 
               dense filled hide-details return-object color="celeste" 
             ></v-autocomplete>
           </v-col>
-           <v-col cols="6" sm="4" lg="6">
+           <v-col cols="6" sm="4" >
 						<v-autocomplete
 							:items="suajes" v-model="suaje" item-text="suaje" item-value="id" label="Suajes" 
 							dense filled hide-details return-object color="celeste" 
 						></v-autocomplete>
 					</v-col>
 
-          <v-col cols="6" sm="4" lg="4">
+          <v-col cols="6" sm="4" >
 						<v-autocomplete
 							:items="plecas" v-model="pleca" item-text="pleca" item-value="id" label="Pleca" 
 							dense filled hide-details return-object color="celeste" 
 						></v-autocomplete>
 					</v-col>
 
-          <v-col cols="12" sm="6" lg="4">
+          <!-- <v-col cols="12" sm="6" lg="4">
 						<v-text-field
 							label="Orden de trabajo"
 							placeholder="Orden de trabajo"
@@ -45,9 +45,9 @@
 							v-model ="orden_trabajo"
 							filled
 						></v-text-field>
-					</v-col>
+					</v-col> -->
 
-					<v-col cols="12" sm="6" lg="4">
+					<!-- <v-col cols="12" sm="6" lg="4">
 						<v-text-field
 							label="# Partida"
 							placeholder="# Partida "
@@ -57,9 +57,9 @@
 							v-model ="num_partida"
 							filled
 						></v-text-field>
-					</v-col>
+					</v-col> -->
 
-          <v-col cols="12" sm="12" lg="6">
+          <!-- <v-col cols="12" sm="12" lg="6">
             <v-autocomplete
               :items="clientes" v-model="cliente" item-text="nombre" item-value="id" label="Clientes" 
               dense filled hide-details return-object color="celeste" 
@@ -71,8 +71,8 @@
 							:items="productos" v-model="producto" item-text="codigo" item-value="id" label="Productos" 
 							dense filled hide-details return-object color="celeste" 
 						></v-autocomplete>
-					</v-col>
-         
+					</v-col> -->
+<!--          
           <v-col cols="12" sm="6" lg="6">
 						<v-text-field
 							label="Cantidad"
@@ -83,9 +83,9 @@
 							v-model ="cantidad"
 							filled
 						></v-text-field>
-					</v-col>
+					</v-col> -->
 
-          <v-col cols="12" sm="4" lg="6"> <!-- FECHA DE COMPROMISO -->
+          <v-col cols="12" sm="4" > <!-- FECHA DE COMPROMISO -->
             <v-dialog ref="fecha1" v-model="fechamodal1" :return-value.sync="fecha1" persistent width="290px">
               <template v-slot:activator="{ on }">
                 <v-text-field
@@ -101,7 +101,7 @@
             </v-dialog>
           </v-col>
 
-          <v-col cols="6" sm="4" lg="6"> <!-- HORA DEL INICIO -->
+          <v-col cols="6" sm="4" > <!-- HORA DEL INICIO -->
 						<v-dialog ref="hora1" v-model="horamodal1" :return-value.sync="hora1" persistent width="290px" >
 							<template v-slot:activator="{ on }">
 								<v-text-field
@@ -118,7 +118,7 @@
 						</v-dialog>
 					</v-col>
 
-          <v-col cols="6" sm="4" lg="6"> <!-- HORA DEL INICIO -->
+          <v-col cols="6" sm="4"> <!-- HORA DEL INICIO -->
 						<v-dialog ref="hora2" v-model="horamodal2" :return-value.sync="hora2" persistent width="290px" >
 							<template v-slot:activator="{ on }">
 								<v-text-field
@@ -135,25 +135,19 @@
 						</v-dialog>
 					</v-col>
 
-					<v-col>
-						<!-- <v-checkbox
-							v-model="urgencia"
-							label="ALTA PRIORIDAD"
-							color="red"
-							large
-						></v-checkbox> -->
+					<!-- <v-col>
 						<v-switch
 							v-model="urgencia"
 							label="ALTA PRIORIDAD"
 							color="red"
 							large
 						></v-switch>
-					</v-col>
+					</v-col> -->
 
 				</v-row>
         
 				<!-- //DIALOG PARA GUARDAR LA INFORMACION -->
-				<v-card-actions class="mt-2">
+				<v-card-actions class="mt-6">
           <v-btn persistent 
 								 :loading="overlay" 
 								 outlined 
@@ -271,17 +265,18 @@
 		created(){
       this.hora1 = this.traerHoraActual();
       this.hora2 = this.traerHoraActual();
+			this.consultar_Maqinas_Depto(1);
+			// this.consultar_Plecas();
+			this.consultar_Suajes();
+			this.validarModoVista()
 
-			this.consultar_Clientes().then(res =>{ 
-				// console.log('res', res)
-				this.consultar_Maqinas();   
-				// this.consultar_Plecas();
-				this.consultar_Suajes();
-				this.validarModoVista(); 	  // VALIDO EL MODO DE LA VISTA
+			// this.consultar_Clientes().then(res =>{ 
+			// 	// console.log('res', res)
+      // 	; 	  // VALIDO EL MODO DE LA VISTA
 
-			}).finally(()=>{ 
-				this.loading = false
-			}); //MANDO A CONSULTAR SUCURSALES A MIXINS
+			// }).finally(()=>{ 
+			// 	this.loading = false
+			// }); //MANDO A CONSULTAR SUCURSALES A MIXINS
 
 		},
 			
@@ -295,11 +290,11 @@
 				this.validarModoVista();
 			},
 
-			cliente: function(){
-				// console.log(this.cliente.id)
+			// cliente: function(){
+			// 	// console.log(this.cliente.id)
 
-				this.consutlar_ProdxCli(this.cliente.id? this.cliente.id: 0)
-			}
+			// 	this.consutlar_ProdxCli(this.cliente.id? this.cliente.id: 0)
+			// }
 		},
 
 		methods:{
@@ -308,21 +303,22 @@
 			...mapActions('Programacion'  ,['obtener_Programaciones']), // IMPORTANDO USO DE VUEX - CLIENTES(ACCIONES)
 
 			validarModoVista(){
+
 				if(this.modoVista === 2){
 					// ASIGNAR VALORES AL FORMULARIO
 					this.id_programacion =  this.parametros.id;
 					this.maquina       = { id: this.parametros.id_maquina },
 					this.suaje 				 = { id: this.parametros.id_suaje   },
 					this.pleca 				 = { id: this.parametros.id_pleca   },
-          this.orden_trabajo = this.parametros.ot
-					this.num_partida 	 = this.parametros.num_partida
-					this.cliente       = { id: this.parametros.id_cliente }
-					this.producto      = { id: this.parametros.id_producto }
-					this.cantidad        = this.parametros.cantidad
+          // this.orden_trabajo = this.parametros.ot
+					// this.num_partida 	 = this.parametros.num_partida
+					// this.cliente       = { id: this.parametros.id_cliente }
+					// this.producto      = { id: this.parametros.id_producto }
+					// this.cantidad        = this.parametros.cantidad
           this.fecha1       = this.parametros.fecha_prog;
           this.hora1        = this.parametros.hora_inicio;
           this.hora2        = this.parametros.hora_fin;
-					this.urgencia     = this.parametros.urgencia === 1 ? true : false;
+					// this.urgencia     = this.parametros.urgencia === 1 ? true : false;
 				}else{
 					this.limpiarCampos()
 				}
@@ -332,11 +328,11 @@
 				if(!this.maquina.id)	  { this.snackbar = true; this.text="NO PUEDES OMITIR LA MAQUINA"   ; return }
 				if(!this.suaje.id)	    { this.snackbar = true; this.text="NO PUEDES OMITIR EL SUAJE"   ; return }
 				if(!this.pleca.id)	    { this.snackbar = true; this.text="NO PUEDES OMITIR LA PLECA" ; return }
-				if(!this.orden_trabajo)	{ this.snackbar = true; this.text="NO PUEDES OMITIR LA ORDEN DE TRABAJO" ; return }
-				if(!this.num_partida)	  { this.snackbar = true; this.text="NO PUEDES OMITIR EL NÚMERO DE PARTIDA" ; return }
-				if(!this.cliente.id)	  { this.snackbar = true; this.text="NO PUEDES OMITIR EL CLIENTE" ; return }
-				if(!this.producto.id)	  { this.snackbar = true; this.text="NO PUEDES OMITIR EL PRODUCTO" ; return }
-				if(!this.cantidad)	    { this.snackbar = true; this.text="NO PUEDES OMITIR LA CANTIDAD " ; return }
+				// if(!this.orden_trabajo)	{ this.snackbar = true; this.text="NO PUEDES OMITIR LA ORDEN DE TRABAJO" ; return }
+				// if(!this.num_partida)	  { this.snackbar = true; this.text="NO PUEDES OMITIR EL NÚMERO DE PARTIDA" ; return }
+				// if(!this.cliente.id)	  { this.snackbar = true; this.text="NO PUEDES OMITIR EL CLIENTE" ; return }
+				// if(!this.producto.id)	  { this.snackbar = true; this.text="NO PUEDES OMITIR EL PRODUCTO" ; return }
+				// if(!this.cantidad)	    { this.snackbar = true; this.text="NO PUEDES OMITIR LA CANTIDAD " ; return }
 				if(!this.fecha1)	      { this.snackbar = true; this.text="NO PUEDES OMITIR LA PROGRAMACIÓN " ; return }
 				if(!this.hora1)	        { this.snackbar = true; this.text="NO PUEDES OMITIR LA HORA INICIO " ; return }
 				if(!this.hora2)	        { this.snackbar = true; this.text="NO PUEDES OMITIR LA HORA FIN " ; return }
@@ -349,15 +345,16 @@
               payload.id_maquina    = this.maquina.id;
               payload.id_suaje      = this.suaje.id;
               payload.id_pleca      = this.pleca.id;
-              payload.orden_trabajo = this.orden_trabajo;
-              payload.num_partida   = this.num_partida;
-              payload.id_cliente    = this.cliente.id;
-              payload.id_producto   = this.producto.id;
-							payload.cantidad      = this.cantidad;
               payload.fecha_prog    = this.fecha1;
               payload.hora_inicio   = this.hora1;
               payload.hora_fin      = this.hora2;
-							payload.urgencia      = this.urgencia ? 1 : 0;
+							payload.estatus       = 2
+							// payload.orden_trabajo = this.orden_trabajo;
+              // payload.num_partida   = this.num_partida;
+              // payload.id_cliente    = this.cliente.id;
+              // payload.id_producto   = this.producto.id;
+							// payload.cantidad      = this.cantidad;
+							// payload.urgencia      = this.urgencia ? 1 : 0;
 				// console.log('payload', payload)
 				// VALIDO QUE ACCION VOY A EJECUTAR SEGUN EL MODO DE LA VISTA
 				this.modoVista === 1 ? this.crear_Programacion(payload): this.actualiza_Programacion(payload);

@@ -48,6 +48,17 @@ export default{
 				console.log('error',error)
 			}).finally(()=>{ commit('LOADING', false)})
     },
+
+		finalizar_Producto_flexo({commit}, payload){
+			return new Promise((resolve, reject) => {
+        Vue.http.post('finalizar.producto.flexo',payload).then(response=>{
+					resolve(response);
+				}).catch((error)=>{
+					console.log('error',error)
+					reject(error)
+				})
+      })
+    },
 	
 	},
 

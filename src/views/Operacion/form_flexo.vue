@@ -23,9 +23,9 @@
               <v-list two-line subheader outlined >
                 <v-list-item >
                   <v-list-item-content >
-                    <v-list-item-title class="overline"> <span class="font-weight-black"> PRODUCTO:</span> {{ detalle.producto}} </v-list-item-title>
+                    <v-list-item-title class="overline"> <span class="font-weight-black"> PRODUCTO:</span> {{ detalle.codigo}} </v-list-item-title>
                     <v-list-item-title class="overline"> <span class="font-weight-black"> CLIENTE: </span> {{ detalle.nomcli}}   </v-list-item-title>
-                    <v-list-item-title class="overline"> <span class="font-weight-black"> O.T:     </span> {{ detalle.ot}}       </v-list-item-title>
+                    <v-list-item-title class="overline"> <span class="font-weight-black"> O.T:     </span> {{ detalle.id_ot}}       </v-list-item-title>
                   </v-list-item-content>
                   <v-list-item-content >
                     <v-list-item-title class="overline"> 
@@ -35,7 +35,7 @@
                       <span> PLECA: </span> {{ detalle.id_pleca ===1? 'SI':'NO'}} 
                     </v-list-item-title>
                     <v-list-item-title class="overline">            
-                      <span class="font-weight-black"> PARTIDA:  </span> {{ detalle.num_partida}}              
+                      <span class="font-weight-black"> PARTIDA:  </span> {{ detalle.id_det_ot}}              
                     </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
